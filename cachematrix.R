@@ -1,11 +1,11 @@
 ## SUMMARY:
 ## --------
 ## These functions provide a capability for storing/"caching" a matrix, as well as
-## the capability to store the inverse of that matrix so that the matrix, and its 
+## the capability to store the inverse of that matrix so that the matrix, and its
 ## corresponding inverse, can be retrieved across subsequent invocations.  Since
 ## calculating the inverse of a matrix can be computationally intensive, calculating it once
 ## and storing it for later reuse, is for more computationally efficient than
-## recalculating the inverse of a given matrix every time it's required.  
+## recalculating the inverse of a given matrix every time it's required.
 
 ## FUNCTION SUMMARY: makeCacheMatrix
 ## ---------------------------------
@@ -23,7 +23,7 @@
 ## function getInverse: Retrieves the stored inverse from the parent context
 ##
 ## USAGE/TEST:
-## 
+##
 ## Note: The last 2 calls will produce the same inverse.  The first will calculate
 ## a new inverse while the 2nd call will retrieve it from cache.
 ##
@@ -33,46 +33,45 @@
 ## > cacheSolve(cacheMatrix)
 ##
 makeCacheMatrix <- function(x = matrix()) {
-  
-  ## Initialize the Inverse of the matrix "x" to NULL when creating a new Cached Matrix
-  invX <- NULL
-  
-  ## Method to store a new matrix
-  set <- function(new_X) {
-    
-    ## The "<<-" operator causes the "x" to be set to "newX" 
-    ## within the parent context (i.e. makeCacheMatrix).
-    x <<- newX
-    
-    ## Since this is a new matrix, initiialize the inverse back to NULL
-    invX <<- NULL
-  }
-  
-  ## Method to retrieve the current matrix
-  get <- function() {
-    x
-  } 
-  
-  ## Method to set the new invserse of the cached Matrix
-  setInverse <- function(new_InvX) {
-    
-    ## Using the "<<-" operator forces the new Inverse to be stored
-    ## within the parent context
-    invX <<- new_InvX
-  }
-  
-  ## Method to retrieve the current matrix inverse
-  getInverse <- function() {
-    invX
-  }
-  
-  ## Return the cached matrix object "wrapped" within a list object
-  ## and provide the various functional operations for storing/retrieving 
-  ## the matrix and its cooresponding inverse.
-  list(set = set, 
-       get = get,
-       setInverse = setInverse,
-       getInverse = getInverse)
+     ## Initialize the Inverse of the matrix "x" to NULL when creating a new Cached Matrix
+     invX <- NULL
+     
+     ## Method to store a new matrix
+     set <- function(new_X) {
+          ## The "<<-" operator causes the "x" to be set to "newX"
+          ## within the parent context (i.e. makeCacheMatrix).
+          x <<- newX
+          
+          ## Since this is a new matrix, initiialize the inverse back to NULL
+          invX <<- NULL
+     }
+     
+     ## Method to retrieve the current matrix
+     get <- function() {
+          x
+     }
+     
+     ## Method to set the new invserse of the cached Matrix
+     setInverse <- function(new_InvX) {
+          ## Using the "<<-" operator forces the new Inverse to be stored
+          ## within the parent context
+          invX <<- new_InvX
+     }
+     
+     ## Method to retrieve the current matrix inverse
+     getInverse <- function() {
+          invX
+     }
+     
+     ## Return the cached matrix object "wrapped" within a list object
+     ## and provide the various functional operations for storing/retrieving
+     ## the matrix and its cooresponding inverse.
+     list(
+          set = set,
+          get = get,
+          setInverse = setInverse,
+          getInverse = getInverse
+     )
 }
 
 
@@ -80,10 +79,10 @@ makeCacheMatrix <- function(x = matrix()) {
 ## ----------------------------
 ## The function "cacheSolve" operates on a special cached matrix object which is created using
 ## "makeCacheMatrix" function.  It either retrieves a previously stored inverse value, or
-## calculates a new inverse if a stored value does not exist, and returns the inverse. 
-## 
+## calculates a new inverse if a stored value does not exist, and returns the inverse.
+##
 ## ARGUMENTS:
-## x: The matrix to calculate/retrieve the inverse for 
+## x: The matrix to calculate/retrieve the inverse for
 ## ...: The parameters to pass to the "solve" function for calculating th inverse of a matrix
 ##
 ## ALGORITHM:
@@ -92,27 +91,26 @@ makeCacheMatrix <- function(x = matrix()) {
 ## 3. Return the resulting inverse
 ##
 cacheSolve <- function(x, ...) {
-        
-  ## Retrieve the current inverse of the passed in matrix
-  invX <- x$getInverse()
-  
-  ## Check to see if the inverse is empty/NULL
-  if(is.null(invX)) {
-    ## The inverse is NULL so calculate a new one and store it
-    message("The retrieved inverse is null so calculating and storing a new one.")
-    
-    ## Retrieve the currently stored/cached matrix from the parent context
-    curMatrix <- x$get()
-    
-    ## Calculate the inverse of the current matrix
-    invX <- solve(curMatrix, ...)
-    
-    ## Store the inverse for future use
-    x$setInverse(invX)
-  } else {
-      message("A previously stored inverse has been retrieved for this matrix.")
-  }
-  
-  ## Return the inverse
-  invX
+     ## Retrieve the current inverse of the passed in matrix
+     invX <- x$getInverse()
+     
+     ## Check to see if the inverse is empty/NULL
+     if (is.null(invX)) {
+          ## The inverse is NULL so calculate a new one and store it
+          message("The retrieved inverse is null so calculating and storing a new one.")
+          
+          ## Retrieve the currently stored/cached matrix from the parent context
+          curMatrix <- x$get()
+          
+          ## Calculate the inverse of the current matrix
+          invX <- solve(curMatrix, ...)
+          
+          ## Store the inverse for future use
+          x$setInverse(invX)
+     } else {
+          message("A previously stored inverse has been retrieved for this matrix.")
+     }
+     
+     ## Return the inverse
+     invX
 }
