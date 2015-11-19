@@ -83,7 +83,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## calculates a new inverse if a stored value does not exist, and returns the inverse. 
 ## 
 ## ARGUMENTS:
-## x: The matrix to calculate/retrieve the inverse for
+## x: The matrix to calculate/retrieve the inverse for 
 ## ...: The parameters to pass to the "solve" function for calculating th inverse of a matrix
 ##
 ## ALGORITHM:
