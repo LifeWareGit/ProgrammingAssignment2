@@ -1,16 +1,16 @@
 ## SUMMARY:
 ## --------
-## These fuctions provides a capability for storing/"caching" a matrix, as well as
-## the capability to store the inverse of that matrix, so that the matrix and it's 
-## corresponding inverse, can be retrieved cross subsequent invocations.  Since
-## calculating the inverse of a matrix can be computatinally intensive, calculating it once
+## These functions provide a capability for storing/"caching" a matrix, as well as
+## the capability to store the inverse of that matrix so that the matrix, and its 
+## corresponding inverse, can be retrieved across subsequent invocations.  Since
+## calculating the inverse of a matrix can be computationally intensive, calculating it once
 ## and storing it for later reuse, is for more computationally efficient than
 ## recalculating the inverse of a given matrix every time it's required.  
 
 ## FUNCTION SUMMARY: makeCacheMatrix
 ## ---------------------------------
 ## The function "makeCacheMatrix" creates a list object wrapper around a matrix object
-## and provides the ability to cache/store the matrix object itself as well as it's inverse.
+## and provides the ability to cache/store the matrix object itself as well as its inverse.
 ## The "makeCacheMatrix" object exposes several utility methods for using this
 ## capability:
 ##
@@ -18,7 +18,7 @@
 ## x: The new matrix to be "wrapped" within the cached matrix Object
 ##
 ## function set: Allows the user to store a new matrix in the parent context
-## function get: Retrieves the stored matrix from the parent parent context
+## function get: Retrieves the stored matrix from the parent context
 ## function setInverse: stores the inverse of a matrix in the parent context
 ## function getInverse: Retrieves the stored inverse from the parent context
 ##
